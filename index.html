@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VP Smile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0f1624;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+    .page {
+      display: none;
+      padding: 2rem;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+    .active {
+      display: block;
+    }
+    .btn {
+      padding: 12px 20px;
+      background-color: #f78da7;
+      border: none;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px 5px;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #ff4d6d;
+    }
+    select, input[type="number"], input[type="time"], input[type="date"] {
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      margin-top: 10px;
+      display: block;
+    }
+    .product-box {
+      border-radius: 20px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      background-color: #1e2a3a;
+    }
+    .product-box img {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
+    }
+    #logo {
+      display: block;
+      margin: 0 auto;
+      max-height: 80px;
+    }
+    #brand {
+      text-align: center;
+      font-size: 2rem;
+      margin: 0.5rem 0 2rem;
+    }
+    #cart-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    #cart-header img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    #cart-count {
+      font-size: 1rem;
+    }
+    #transferencia-info {
+      display: none;
+      margin-top: 10px;
+      background-color: #fff5f520;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    #mensaje-final {
+      background-color: #1e2a3a;
+      padding: 1rem;
+      border-radius: 15px;
+      margin-top: 20px;
+      color: #00ff88;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="page active" id="page1">
+    <img id="logo" src="logo.png" alt="Logo">
+    <h1 id="brand">SMiLe</h1>
+    <div id="cart-header">
+      <img src="cart.png" alt="Carrito">
+      <div id="cart-count">Total: 0 productos - $0</div>
+    </div>
+    <h2>Selecciona tu producto</h2>
+
+    <div class="product-box">
+      <img src="vape1.jpg" alt="Vape 1" />
+      <h3>Iplay 3h</h3>
+      <label>Hits: 8000</label>
+      <p>Precio: $200</p>
+      <p>Sabor:</p>
+      <select id="sabor1" onchange="updateCart()">
+        <option>Sandía</option>
+        <option>Mango</option>
+        <option>Uva</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty1" value="0" min="0" onchange="updateCart()" />
+    </div>
+
+    <div class="product-box">
+      <img src="vape2.jpg" alt="Vape 2" />
+      <h3>Vape 2</h3>
+      <label>Hits: 8000</label>
+      <p>Precio: $200</p>
+      <p>Sabor:</p>
+      <select id="sabor2" onchange="updateCart()">
+        <option>Fresa</option>
+        <option>Blueberry</option>
+        <option>Manzana</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty2" value="0" min="0" onchange="updateCart()" />
+    </div>
+
+    <div class="product-box">
+      <img src="vape3.jpg" alt="Vape 3" />
+      <h3>Vape 3</h3>
+      <label>Hits: 8000</label>
+      <p>Precio: $200</p>
+      <p>Sabor:</p>
+      <select id="sabor3" onchange="updateCart()">
+        <option>Limón</option>
+        <option>Piña</option>
+        <option>Melón</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty3" value="0" min="0" onchange="updateCart()" />
+    </div>
+
+    <button class="btn" onclick="prepareCart()">Continuar con el pedido</button>
+  </div>
+
+  <div class="page" id="page2">
+    <h2>Datos de entrega y pago</h2>
+    <label>Hora de entrega:</label>
+    <input type="time" id="hora" />
+    <label>Día de entrega:</label>
+    <input type="date" id="dia" />
+    <label>Lugar de entrega:</label>
+    <select id="lugar">
+      <option>La Raza</option>
+      <option>Metro Hidalgo</option>
+      <option>Plaza Las Américas</option>
+      <option>Paseo Ventura</option>
+      <option>Hospital</option>
+      <option>Palacio San Cristóbal</option>
+    </select>
+
+    <h3>Método de pago:</h3>
+    <button class="btn" onclick="setPago('Efectivo')">Efectivo</button>
+    <button class="btn" onclick="setPago('Transferencia')">Transferencia</button>
+    <div id="transferencia-info">
+      <p><strong>BBVA:</strong> 41523143916190</p>
+      <p><strong>Banco Azteca:</strong> 4027665887615996</p>
+    </div>
+
+    <button class="btn" onclick="showPage(1)">Regresar</button>
+    <button class="btn" onclick="showPage(3)">Continuar</button>
+  </div>
+
+  <div class="page" id="page3">
+    <h2>Resumen del pedido</h2>
+    <div id="resumen"></div>
+    <button class="btn" onclick="showPage(2)">Regresar</button>
+    <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+    <div id="mensaje-final"></div>
+  </div>
+
+  <script>
+    let carrito = [], pago = "";
+
+    function updateCart() {
+      carrito = [];
+      const productos = [
+        {
+          nombre: "Vape 1",
+          sabor: document.getElementById("sabor1").value,
+          cantidad: parseInt(document.getElementById("qty1").value),
+          img: "vape1.jpg"
+        },
+        {
+          nombre: "Vape 2",
+          sabor: document.getElementById("sabor2").value,
+          cantidad: parseInt(document.getElementById("qty2").value),
+          img: "vape2.jpg"
+        },
+        {
+          nombre: "Vape 3",
+          sabor: document.getElementById("sabor3").value,
+          cantidad: parseInt(document.getElementById("qty3").value),
+          img: "vape3.jpg"
+        }
+      ];
+      let totalCantidad = 0, totalPrecio = 0;
+      productos.forEach(p => {
+        if (p.cantidad > 0) {
+          carrito.push(p);
+          totalCantidad += p.cantidad;
+          totalPrecio += p.cantidad * 200;
+        }
+      });
+      document.getElementById("cart-count").innerText = `Total: ${totalCantidad} productos - $${totalPrecio}`;
+    }
+
+    function prepareCart() {
+      updateCart();
+      if (carrito.length === 0) {
+        alert("Selecciona al menos un producto.");
+        return;
+      }
+      showPage(2);
+    }
+
+    function setPago(metodo) {
+      pago = metodo;
+      document.getElementById("transferencia-info").style.display = metodo === "Transferencia" ? "block" : "none";
+    }
+
+    function showPage(n) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById("page" + n).classList.add("active");
+      if (n === 3) showResumen();
+    }
+
+    function showResumen() {
+      let resumenHTML = "";
+      let total = 0;
+      carrito.forEach(p => {
+        let subtotal = p.cantidad * 200;
+        total += subtotal;
+        resumenHTML += `
+          <div style="margin-bottom: 20px;">
+            <img src="${p.img}" style="max-width:100px"><br>
+            <ul>
+              <li><strong>Producto:</strong> ${p.nombre}</li>
+              <li><strong>Sabor:</strong> ${p.sabor}</li>
+              <li><strong>Cantidad:</strong> ${p.cantidad}</li>
+              <li><strong>Subtotal:</strong> $${subtotal}</li>
+            </ul>
+          </div>`;
+      });
+      let hora = document.getElementById("hora").value;
+      let dia = document.getElementById("dia").value;
+      let lugar = document.getElementById("lugar").value;
+      resumenHTML += `
+        <ul>
+          <li><strong>Entrega en:</strong> ${lugar}</li>
+          <li><strong>Día:</strong> ${dia}</li>
+          <li><strong>Hora:</strong> ${hora}</li>
+          <li><strong>Método de pago:</strong> ${pago}</li>
+          <li><strong>Total a pagar:</strong> $${total}</li>
+        </ul>`;
+      document.getElementById("resumen").innerHTML = resumenHTML;
+    }
+
+    function finalizarPedido() {
+      document.getElementById("mensaje-final").innerText = "PEDIDO FINALIZADO\nToma captura y mándala a IG: smile__vp";
+    }
+  </script>
+</body>
+</html>
