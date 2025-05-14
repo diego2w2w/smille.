@@ -441,6 +441,74 @@
     function finalizarPedido() {
       document.getElementById("mensaje-final").innerText = "PEDIDO FINALIZADO\nToma captura y mándala a IG: smile__vp";
     }
+    <script>
+  let modal = document.createElement('div');
+  let modalImg = document.createElement('img');
+  let closeBtn = document.createElement('button');
+  let nextBtn = document.createElement('button');
+  let prevBtn = document.createElement('button');
+  let currentImgIndex = 0;
+  let images = [];
+
+  // Configuración inicial del modal
+  modal.classList.add('modal');
+  modalImg.classList.add('modal-content');
+  closeBtn.classList.add('close-btn');
+  closeBtn.innerHTML = '&times;';
+  nextBtn.classList.add('next-btn');
+  nextBtn.innerHTML = '→';
+  prevBtn.classList.add('prev-btn');
+  prevBtn.innerHTML = '←';
+
+  // Añadir elementos al modal
+  modal.appendChild(closeBtn);
+  modal.appendChild(modalImg);
+  modal.appendChild(nextBtn);
+  modal.appendChild(prevBtn);
+  document.body.appendChild(modal);
+
+  // Función para abrir el modal con la imagen seleccionada
+  function openModal(event) {
+    images = document.querySelectorAll('.product-thumbnail');
+    let src = event.target.getAttribute('data-full');
+    modalImg.src = src;
+    modal.style.display = 'flex';
+    currentImgIndex = [...images].indexOf(event.target);
+  }
+
+  // Función para cerrar el modal
+  function closeModal() {
+    modal.style.display = 'none';
+  }
+
+  // Función para navegar a la siguiente imagen
+  function nextImage() {
+    currentImgIndex = (currentImgIndex + 1) % images.length;
+    modalImg.src = images[currentImgIndex].getAttribute('data-full');
+  }
+
+  // Función para navegar a la imagen anterior
+  function prevImage() {
+    currentImgIndex = (currentImgIndex - 1 + images.length) % images.length;
+    modalImg.src = images[currentImgIndex].getAttribute('data-full');
+  }
+
+  // Asignar eventos a las imágenes
+  document.querySelectorAll('.product-thumbnail').forEach(image => {
+    image.addEventListener('click', openModal);
+  });
+
+  // Asignar eventos a los botones de navegación
+  closeBtn.addEventListener('click', closeModal);
+  nextBtn.addEventListener('click', nextImage);
+  prevBtn.addEventListener('click', prevImage);
+
+  // Cerrar el modal si se hace clic fuera de la imagen
+  modal.addEventListener('click', function(event) {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
   </script>
 </body>
 </html>
