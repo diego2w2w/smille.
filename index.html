@@ -93,6 +93,149 @@
       text-align: center;
       font-weight: bold;
     }
+    <style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #0f1624;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+  }
+  .page {
+    display: none;
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+  .active {
+    display: block;
+  }
+  .btn {
+    padding: 12px 20px;
+    background-color: #f78da7;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 5px;
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    background-color: #ff4d6d;
+  }
+  select, input[type="number"], input[type="time"], input[type="date"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    margin-top: 10px;
+    display: block;
+  }
+  .product-box {
+    border-radius: 20px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    background-color: #1e2a3a;
+  }
+  .product-box img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+  }
+  #logo {
+    display: block;
+    margin: 0 auto;
+    max-height: 80px;
+  }
+  #brand {
+    text-align: center;
+    font-size: 2rem;
+    margin: 0.5rem 0 2rem;
+  }
+  #cart-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  #cart-header img {
+    width: 30px;
+    margin-right: 10px;
+  }
+  #cart-count {
+    font-size: 1rem;
+  }
+  #transferencia-info {
+    display: none;
+    margin-top: 10px;
+    background-color: #fff5f520;
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  #mensaje-final {
+    background-color: #1e2a3a;
+    padding: 1rem;
+    border-radius: 15px;
+    margin-top: 20px;
+    color: #00ff88;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  /* NUEVO CSS PARA EL MODAL DE IMÁGENES */
+  /* Estilos para la vista ampliada (modal) */
+  .modal {
+    display: none; /* Inicialmente oculto */
+    position: fixed; /* Fijo para cubrir toda la pantalla */
+    z-index: 1000; /* Asegura que se vea encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo oscuro semitransparente */
+    justify-content: center; /* Centrar el contenido en el modal */
+    align-items: center; /* Centrar el contenido en el modal */
+  }
+
+  /* Contenido del modal */
+  .modal-content {
+    position: relative;
+    max-width: 90%; /* Máximo ancho del modal */
+    max-height: 90%; /* Máxima altura del modal */
+  }
+
+  /* Imagen dentro del modal */
+  .modal img {
+    width: 100%; /* Hacer la imagen adaptativa al tamaño del modal */
+    height: auto; /* Mantener las proporciones de la imagen */
+  }
+
+  /* Estilo para los botones de navegación y cerrar */
+  .close-btn, .next-btn, .prev-btn {
+    position: absolute;
+    top: 50%; /* Centrar verticalmente */
+    transform: translateY(-50%); /* Ajustar la posición para que esté centrado */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%; /* Botones redondeados */
+  }
+
+  .close-btn {
+    right: 10px; /* Botón de cerrar en la esquina superior derecha */
+    top: 10px;
+  }
+
+  .next-btn {
+    right: 10px; /* Flecha siguiente en la parte derecha */
+  }
+
+  .prev-btn {
+    left: 10px; /* Flecha anterior en la parte izquierda */
+  }
   </style>
 </head>
 <body>
