@@ -104,21 +104,26 @@
       <div id="cart-count">Total: 0 productos - $0</div>
     </div>
     <h2>Selecciona tu producto</h2>
+   <div class="product-box">
+  <!-- Contenedor de imágenes del producto -->
+  <div class="product-images">
+    <img class="product-thumbnail" src="va.png" alt="Vape 1" data-full="vape1_large.jpg" />
+    <img class="product-thumbnail" src="va2.png" alt="Vape 1" data-full="vape1_large2.jpg" />
+    <!-- Puedes añadir más imágenes aquí si quieres -->
+  </div>
+  <h3>Pillow Talk 13mL</h3>
+  <label>Hits: 8000</label>
+  <p>Precio: $200</p>
+  <p>Sabor:</p>
+  <select id="sabor1" onchange="updateCart()">
+    <option>Sandía</option>
+    <option>Mango</option>
+    <option>Uva</option>
+  </select>
+  <label>Cantidad:</label>
+  <input type="number" id="qty1" value="0" min="0" onchange="updateCart()" />
+</div>
 
-    <div class="product-box">
-      <img src="va.png" alt="Vape 1" />
-      <h3>Pillow Talk 13mL</h3>
-      <label>Hits: 8000</label>
-      <p>Precio: $200</p>
-      <p>Sabor:</p>
-      <select id="sabor1" onchange="updateCart()">
-        <option>Sandía</option>
-        <option>Mango</option>
-        <option>Uva</option>
-      </select>
-      <label>Cantidad:</label>
-      <input type="number" id="qty1" value="0" min="0" onchange="updateCart()" />
-    </div>
 
     <div class="product-box">
       <img src="vape2.jpg" alt="Vape 2" />
