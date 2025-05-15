@@ -269,10 +269,10 @@ color: white;
 let carrito = [], pago = "";
 const precios = { "Vape 1": 200, "Vape 2": 250, "Vape 3": 170 , "Vape 4": 200 };
 const galeria = {
-  'vape 1': ["va.png", "va2.png", "va3.png"],
-  'vape 2': ["dosva.png", "rosa2.png", "ama2.png"],
-  'vape 3': ["v37.png", "we.png", "fe.png"],
-  'vape 4': ["snp1.png", "snp2.png", "snp3.png"]
+  "vape 1": ["va.png", "va2.png", "va3.png"],
+  "vape 2": ["dosva.png", "rosa2.png", "ama2.png"],
+  "vape 3": ["v37.png", "we.png", "fe.png"],
+  "vape 4": ["snp1.png", "snp2.png", "snp3.png"]
 };
   
 let galeriaActual = [], imgIndex = 0;
@@ -299,7 +299,6 @@ function nextImg(event) {
   imgIndex = (imgIndex + 1) % galeriaActual.length;
   document.getElementById("gallery-img").src = galeriaActual[imgIndex];
 }
-
 function updateCart() {
 carrito = [];
 const productos = [
