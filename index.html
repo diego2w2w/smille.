@@ -220,6 +220,7 @@ color: white;
 <input type="number" id="qty4" value="0" min="0" onchange="updateCart()" />
 </div>
   
+<div>  
 <button class="btn" onclick="prepareCart()">Continuar con el pedido</button>
 </div>
 
@@ -280,8 +281,9 @@ function updateCart() {
 carrito = [];
 const productos = [
 { nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
-{ nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "vape2.jpg" },
-{ nombre: "Vape 3", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "vape3.jpg" }
+{ nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "dosva.jpg" },
+{ nombre: "Lost vape orion bar", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "v37.jpg" }
+  { nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.jpg" }
 ];
 let totalCantidad = 0, totalPrecio = 0;
 productos.forEach(p => {
