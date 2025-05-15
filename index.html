@@ -211,7 +211,7 @@ color: white;
 <label>Hits:7000</label>
 <p>Precio: $200</p>
 <p>Sabor:</p>
-<select id="sabor2" onchange="updateCart()">
+<select id="sabor4" onchange="updateCart()">
 <option>Mixed berries</option>
 <option>Sour apple</option>
 <option>Peach ice</option>
@@ -266,12 +266,12 @@ color: white;
 
 <script>
 let carrito = [], pago = "";
-const precios = { "Vape 1": 200, "Vape 2": 250, "Vape 3": 200 };
+const precios = { "Vape 1": 200, "Vape 2": 250, "Vape 3": 170 , "Vape 4": 200 };
 const galeria = {
-  va: ["va.png", "va2.png", "va3.png"],
-  vape2: ["dosva.png", "rosa2.png", "ama2.png"],
-  vape3: ["v37.png", "we.png", "fe.png"],
-  vape4: ["snp1.png", "snp2.png", "snp3.png"]
+  vape 1: ["va.png", "va2.png", "va3.png"],
+  vape 2: ["dosva.png", "rosa2.png", "ama2.png"],
+  vape 3: ["v37.png", "we.png", "fe.png"],
+  vape 4: ["snp1.png", "snp2.png", "snp3.png"]
 };
   
 let galeriaActual = [], imgIndex = 0;
