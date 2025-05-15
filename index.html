@@ -276,29 +276,7 @@ const galeria = {
 };
   
 let galeriaActual = [], imgIndex = 0;
-  function openGallery(nombre) {
-  galeriaActual = galeria[nombre];
-  if (!galeriaActual) return; // Seguridad: si no existe, salir
-  imgIndex = 0;
-  document.getElementById("gallery-img").src = galeriaActual[imgIndex];
-  document.getElementById("gallery-modal").style.display = "flex";
-}
 
-function closeGallery() {
-  document.getElementById("gallery-modal").style.display = "none";
-}
-
-function prevImg(event) {
-  event.stopPropagation();
-  imgIndex = (imgIndex - 1 + galeriaActual.length) % galeriaActual.length;
-  document.getElementById("gallery-img").src = galeriaActual[imgIndex];
-}
-
-function nextImg(event) {
-  event.stopPropagation();
-  imgIndex = (imgIndex + 1) % galeriaActual.length;
-  document.getElementById("gallery-img").src = galeriaActual[imgIndex];
-}
 function updateCart() {
 carrito = [];
 const productos = [
