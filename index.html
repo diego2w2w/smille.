@@ -1,107 +1,158 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda de Ropa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tienda en Línea</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    .store, .order { display: none; padding: 20px; }
-    .active { display: block; }
-    .gallery img { width: 150px; margin: 10px; cursor: pointer; border: 2px solid transparent; }
-    .gallery img:hover { border-color: #333; }
-    #cart-summary { margin-top: 20px; }
-    .cart-item { display: flex; justify-content: space-between; margin-bottom: 5px; }
-    .cart-item span { margin-right: 10px; }
-    .remove-btn { cursor: pointer; color: red; }
-    button { margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .pagina {
+      display: none;
+      padding: 20px;
+    }
+    .pagina.activa {
+      display: block;
+    }
+    .producto {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .carrito-info {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .boton {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .boton:hover {
+      background-color: #218838;
+    }
+    .eliminar {
+      background-color: red;
+      color: white;
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+    }
+    .eliminar:hover {
+      background-color: darkred;
+    }
   </style>
 </head>
 <body>
 
-  <div id="store" class="store active">
-    <h1>Tienda de Ropa</h1>
-    <div class="gallery">
-      <img src="https://via.placeholder.com/150?text=Producto+1" data-price="10" alt="Producto 1">
-      <img src="https://via.placeholder.com/150?text=Producto+2" data-price="20" alt="Producto 2">
-      <img src="https://via.placeholder.com/150?text=Producto+3" data-price="30" alt="Producto 3">
+  <!-- Página 1: Tienda -->
+  <div id="pagina1" class="pagina activa">
+    <h1>Tienda</h1>
+    <div class="producto">
+      <p>Producto A - $10</p>
+      <button class="boton" onclick="agregarAlCarrito('Producto A', 10)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <p>Producto B - $20</p>
+      <button class="boton" onclick="agregarAlCarrito('Producto B', 20)">Agregar al carrito</button>
+    </div>
+    <div class="producto">
+      <p>Producto C - $15</p>
+      <button class="boton" onclick="agregarAlCarrito('Producto C', 15)">Agregar al carrito</button>
     </div>
 
-    <div id="cart-summary">
-      <h2>Carrito</h2>
-      <div id="cart-items"></div>
-      <p>Total de productos: <span id="product-count">0</span></p>
-      <p>Total a pagar: $<span id="total-price">0</span></p>
-      <button id="continue-btn">Continuar con el pedido</button>
+    <div class="carrito-info">
+      <p id="carritoCantidad">Productos en carrito: 0</p>
+      <p id="carritoTotal">Total a pagar: $0</p>
+      <button class="boton" onclick="mostrarSegundaPagina()">Continuar con el pedido</button>
     </div>
   </div>
 
-  <div id="order" class="order">
-    <h1>Gracias por tu compra</h1>
-    <p>Tu pedido ha sido recibido.</p>
-    <button id="back-btn">Volver a la tienda</button>
+  <!-- Página 2: Pedido -->
+  <div id="pagina2" class="pagina">
+    <h1>Datos de Entrega</h1>
+    <form>
+      <label>Nombre:</label><br />
+      <input type="text" required /><br /><br />
+      <label>Dirección:</label><br />
+      <input type="text" required /><br /><br />
+      <label>Teléfono:</label><br />
+      <input type="tel" required /><br /><br />
+    </form>
+
+    <h2>Resumen del pedido</h2>
+    <ul id="listaResumen"></ul>
+    <p id="totalResumen"></p>
+
+    <button class="boton" onclick="regresarATienda()">Volver a la tienda</button>
   </div>
 
   <script>
-    const gallery = document.querySelector('.gallery');
-    const cartItems = document.getElementById('cart-items');
-    const productCount = document.getElementById('product-count');
-    const totalPrice = document.getElementById('total-price');
-    const continueBtn = document.getElementById('continue-btn');
-    const storeSection = document.getElementById('store');
-    const orderSection = document.getElementById('order');
-    const backBtn = document.getElementById('back-btn');
+    const carrito = [];
 
-    let cart = [];
-
-    gallery.addEventListener('click', (e) => {
-      if (e.target.tagName === 'IMG') {
-        const price = parseFloat(e.target.dataset.price);
-        const name = e.target.alt;
-        const product = { name, price };
-        cart.push(product);
-        updateCart();
-      }
-    });
-
-    function updateCart() {
-      cartItems.innerHTML = '';
-      cart.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.className = 'cart-item';
-        div.innerHTML = `<span>${item.name} - $${item.price}</span><span class="remove-btn" data-index="${index}">Eliminar</span>`;
-        cartItems.appendChild(div);
-      });
-
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
-      productCount.textContent = cart.length;
-      totalPrice.textContent = total.toFixed(2);
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      actualizarCarrito();
     }
 
-    cartItems.addEventListener('click', (e) => {
-      if (e.target.classList.contains('remove-btn')) {
-        const index = parseInt(e.target.dataset.index);
-        cart.splice(index, 1);
-        updateCart();
-      }
-    });
+    function eliminarDelCarrito(index) {
+      carrito.splice(index, 1);
+      actualizarCarrito();
+    }
 
-    continueBtn.addEventListener('click', () => {
-      if (cart.length > 0) {
-        storeSection.classList.remove('active');
-        orderSection.classList.add('active');
-      } else {
-        alert('Tu carrito está vacío. Agrega productos antes de continuar.');
-      }
-    });
+    function actualizarCarrito() {
+      const cantidad = carrito.length;
+      const total = carrito.reduce((sum, item) => sum + item.precio, 0);
 
-    backBtn.addEventListener('click', () => {
-      orderSection.classList.remove('active');
-      storeSection.classList.add('active');
-      cart = [];
-      updateCart();
-    });
+      document.getElementById("carritoCantidad").innerText = `Productos en carrito: ${cantidad}`;
+      document.getElementById("carritoTotal").innerText = `Total a pagar: $${total}`;
+    }
+
+    function mostrarSegundaPagina() {
+      if (carrito.length === 0) {
+        alert("Agrega al menos un producto al carrito.");
+        return;
+      }
+      document.getElementById("pagina1").classList.remove("activa");
+      document.getElementById("pagina2").classList.add("activa");
+      renderizarResumen();
+    }
+
+    function regresarATienda() {
+      document.getElementById("pagina2").classList.remove("activa");
+      document.getElementById("pagina1").classList.add("activa");
+    }
+
+    function renderizarResumen() {
+      const lista = document.getElementById("listaResumen");
+      const totalResumen = document.getElementById("totalResumen");
+      lista.innerHTML = "";
+
+      carrito.forEach((producto, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${producto.nombre} - $${producto.precio}`;
+
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.className = "eliminar";
+        btnEliminar.onclick = () => {
+          eliminarDelCarrito(index);
+          renderizarResumen();
+        };
+
+        li.appendChild(btnEliminar);
+        lista.appendChild(li);
+      });
+
+      const total = carrito.reduce((sum, item) => sum + item.precio, 0);
+      totalResumen.textContent = `Total a pagar: $${total}`;
+    }
   </script>
 </body>
 </html>
-
