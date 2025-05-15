@@ -253,7 +253,7 @@ let carrito = [], pago = "";
 const precios = { "Vape 1": 200, "Vape 2": 250, "Vape 3": 200 };
 const galeria = {
 va: ["va.png", "va2.png", "va3.png"],
-vape2: ["dosva.png", "rojo2.png"],
+vape2: ["dosva.png", "ama.png"],
 vape3: ["vape3-1.jpg", "vape3-2.jpg"]
 };
 let galeriaActual = [], imgIndex = 0;
@@ -261,8 +261,8 @@ let galeriaActual = [], imgIndex = 0;
 function updateCart() {
 carrito = [];
 const productos = [
-{ nombre: "Vape 1", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
-{ nombre: "Vape 2", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "vape2.jpg" },
+{ nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
+{ nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "vape2.jpg" },
 { nombre: "Vape 3", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "vape3.jpg" }
 ];
 let totalCantidad = 0, totalPrecio = 0;
