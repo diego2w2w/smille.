@@ -1,383 +1,364 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>VP Smile</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
-<style>
-body {
-margin: 0;
-padding: 0;
-background-color: #0f1624;
-font-family: 'Montserrat', sans-serif;
-color: white;
-}
-
-.page {
-display: none;
-padding: 2rem;
-animation: fadeIn 0.5s ease-in-out forwards;
-}
-
-.active {
-display: block;
-}
-
-.btn {
-padding: 12px 20px;
-background-color: #f78da7;
-border: none;
-border-radius: 40px;
-color: white;
-font-weight: bold;
-cursor: pointer;
-margin: 10px 5px;
-transition: all 0.3s ease;
-}
-
-.btn:hover {
-background-color: #ff4d6d;
-}
-
-select, input[type="number"], input[type="time"], input[type="date"] {
-padding: 10px;
-border: 2px solid #ccc;
-border-radius: 12px;
-margin-top: 10px;
-display: block;
-}
-
-.product-box {
-border-radius: 20px;
-padding: 1rem;
-margin-bottom: 2rem;
-background-color: #1e2a3a;
-}
-
-.product-box img {
-width: 100px;
-height: auto;
-display: block;
-margin-bottom: 10px;
-cursor: pointer;
-}
-
-#logo {
-display: block;
-margin: 0 auto;
-max-height: 80px;
-}
-
-#brand {
-text-align: center;
-font-size: 2rem;
-margin: 0.5rem 0 2rem;
-}
-
-#cart-header {
-display: flex;
-justify-content: flex-end;
-align-items: center;
-margin-bottom: 1rem;
-}
-
-#cart-header img {
-width: 30px;
-margin-right: 10px;
-}
-
-#cart-count {
-font-size: 1rem;
-}
-
-#transferencia-info {
-display: none;
-margin-top: 10px;
-background-color: #fff5f520;
-padding: 1rem;
-border-radius: 12px;
-}
-
-#mensaje-final {
-background-color: #1e2a3a;
-padding: 1rem;
-border-radius: 15px;
-margin-top: 20px;
-color: #00ff88;
-text-align: center;
-font-weight: bold;
-}
-
-/* Estilos para galería */
-#gallery-modal {
-display: none;
-position: fixed;
-z-index: 1000;
-left: 0;
-top: 0;
-width: 100vw;
-height: 100vh;
-background: rgba(0, 0, 0, 0.8);
-justify-content: center;
-align-items: center;
-flex-direction: column;
-}
-
-#gallery-img {
-max-width: 80%;
-max-height: 80%;
-}
-
-.gallery-nav {
-color: white;
-font-size: 2rem;
-cursor: pointer;
-margin: 20px;
-}
-
-#close-gallery {
-position: absolute;
-top: 20px;
-right: 30px;
-font-size: 2rem;
-cursor: pointer;
-color: white;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VP Smile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0f1624;
+      font-family: 'Montserrat', sans-serif;
+      color: white;
+    }
+    .page {
+      display: none;
+      padding: 2rem;
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
+    .active {
+      display: block;
+    }
+    .btn {
+      padding: 12px 20px;
+      background-color: #f78da7;
+      border: none;
+      border-radius: 40px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px 5px;
+      transition: all 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #ff4d6d;
+    }
+    select, input[type="number"], input[type="time"], input[type="date"] {
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 12px;
+      margin-top: 10px;
+      display: block;
+    }
+    .product-box {
+      border-radius: 20px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      background-color: #1e2a3a;
+    }
+    .product-box img {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    #logo {
+      display: block;
+      margin: 0 auto;
+      max-height: 80px;
+    }
+    #brand {
+      text-align: center;
+      font-size: 2rem;
+      margin: 0.5rem 0 2rem;
+    }
+    #cart-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    #cart-header img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    #cart-count {
+      font-size: 1rem;
+    }
+    #transferencia-info {
+      display: none;
+      margin-top: 10px;
+      background-color: #fff5f520;
+      padding: 1rem;
+      border-radius: 12px;
+    }
+    #mensaje-final {
+      background-color: #1e2a3a;
+      padding: 1rem;
+      border-radius: 15px;
+      margin-top: 20px;
+      color: #00ff88;
+      text-align: center;
+      font-weight: bold;
+    }
+    #gallery-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    #gallery-img {
+      max-width: 80%;
+      max-height: 80%;
+    }
+    .gallery-nav {
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      margin: 20px;
+    }
+    #close-gallery {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: white;
+    }
+  </style>
 </head>
 <body>
+  <div class="page active" id="page1">
+    <img id="logo" src="lo.png" alt="Logo">
+    <h1 id="brand">SMiLe</h1>
+    <div id="cart-header">
+      <img src="c.png" alt="Carrito">
+      <div id="cart-count">Total: 0 productos - $0</div>
+    </div>
+    <h2>Selecciona tu producto</h2>
 
-<div class="page active" id="page1">
-  <img id="logo" src="lo.png" alt="Logo">
-  <h1 id="brand">SMiLe</h1>
+    <!-- Producto 1 -->
+    <div class="product-box">
+      <img src="va.png" alt="Vape 1" onclick="openGallery('vape 1')" />
+      <h3>Pillow Talk 13mL</h3>
+      <label>Hits: 8,500</label>
+      <p>Precio: $200</p>
+      <p>Sabor:</p>
+      <select id="sabor1" onchange="updateCart()">
+        <option>clear</option>
+        <option>Peach nectar</option>
+        <option>Pink whit cream</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty1" value="0" min="0" onchange="updateCart()" />
+    </div>
 
-  <div id="cart-header">
-    <img src="c.png" alt="Carrito">
-    <div id="cart-count">Total: 0 productos - $0</div>
+    <!-- Producto 2 -->
+    <div class="product-box">
+      <img src="dosva.png" alt="Vape 2" onclick="openGallery('vape 2')" />
+      <h3>Snoopy Smoke Extra Tank 2 x 18ML</h3>
+      <label>Hits: 15,000</label>
+      <p>Precio: $250</p>
+      <p>Sabor:</p>
+      <select id="sabor2" onchange="updateCart()">
+        <option>Bahanna mama</option>
+        <option>Tropical rainbown blast</option>
+        <option>Bluebeberry mint</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty2" value="0" min="0" onchange="updateCart()" />
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="product-box">
+      <img src="v37.png" alt="Vape 3" onclick="openGallery('vape 3')" />
+      <h3>Lost vape orion bar</h3>
+      <label>Hits: 7500</label>
+      <p>Precio: $170</p>
+      <p>Sabor:</p>
+      <select id="sabor3" onchange="updateCart()">
+        <option>Euphria puddiing</option>
+        <option>Strawberry watermelon</option>
+        <option>Blueberry raspberry</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty3" value="0" min="0" onchange="updateCart()" />
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="product-box">
+      <img src="snp1.png" alt="Vape 4" onclick="openGallery('vape 4')" />
+      <h3>Death row</h3>
+      <label>Hits: 7000</label>
+      <p>Precio: $200</p>
+      <p>Sabor:</p>
+      <select id="sabor4" onchange="updateCart()">
+        <option>Mixed berries</option>
+        <option>Sour apple</option>
+        <option>Peach ice</option>
+      </select>
+      <label>Cantidad:</label>
+      <input type="number" id="qty4" value="0" min="0" onchange="updateCart()" />
+    </div>
+
+    <div>
+      <button class="btn" onclick="prepareCart()">Continuar con el pedido</button>
+    </div>
   </div>
-</div>
 
-<h2>Selecciona tu producto</h2>
+  <div class="page" id="page2">
+    <h2>Datos de entrega y pago</h2>
+    <label>Hora de entrega:</label>
+    <input type="time" id="hora" />
+    <label>Día de entrega:</label>
+    <input type="date" id="dia" />
+    <label>Lugar de entrega:</label>
+    <select id="lugar">
+      <option>La Raza</option>
+      <option>Metro Hidalgo</option>
+      <option>Plaza Las Américas</option>
+      <option>Paseo Ventura</option>
+      <option>Hospital</option>
+      <option>Palacio San Cristóbal</option>
+    </select>
+    <h3>Método de pago:</h3>
+    <button class="btn" onclick="setPago('Efectivo')">Efectivo</button>
+    <button class="btn" onclick="setPago('Transferencia')">Transferencia</button>
+    <div id="transferencia-info">
+      <p><strong>BBVA:</strong> 41523143916190</p>
+      <p><strong>Banco Azteca:</strong> 4027665887615996</p>
+    </div>
+    <button class="btn" onclick="showPage(1)">Regresar</button>
+    <button class="btn" onclick="showPage(3)">Continuar</button>
+  </div>
 
-<div class="product-box">
-<img src="va.png" alt="Vape 1" onclick="openGallery('Pillow Talk 13mL')" />
-<h3>Pillow Talk 13mL</h3>
-<label>Hits: 8,500</label>
-<p>Precio: $200</p>
-<p>Sabor:</p>
-<select id="sabor1" onchange="updateCart()">
-<option>clear</option>
-<option>Peach nectar</option>
-<option>Pink whit cream</option>
-</select>
-<label>Cantidad:</label>
-<input type="number" id="qty1" value="0" min="0" onchange="updateCart()" />
-</div>
+  <div class="page" id="page3">
+    <h2>Resumen del pedido</h2>
+    <div id="resumen"></div>
+    <button class="btn" onclick="showPage(2)">Regresar</button>
+    <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+    <div id="mensaje-final"></div>
+  </div>
 
-<div class="product-box">
-<img src="dosva.png" alt="Vape 2" onclick="openGallery('Snoopy Smoke Extra Tank 2 x 18ML')" />
-<h3>Snoopy Smoke Extra Tank 2 x 18ML</h3>
-<label>Hits: 15,000</label>
-<p>Precio: $250</p>
-<p>Sabor:</p>
-<select id="sabor2" onchange="updateCart()">
-<option>Bahanna mama</option>
-<option>Tropical rainbown blast</option>
-<option>Bluebeberry mint</option>
-</select>
-<label>Cantidad:</label>
-<input type="number" id="qty2" value="0" min="0" onchange="updateCart()" />
-</div>
+  <div id="gallery-modal" onclick="closeGallery()">
+    <div id="close-gallery">&times;</div>
+    <div class="gallery-nav" onclick="prevImg(event)">←</div>
+    <img id="gallery-img" src="" alt="Galería Producto">
+    <div class="gallery-nav" onclick="nextImg(event)">→</div>
+  </div>
 
-<div class="product-box">
-<img src="v37.png" alt="Vape 3" onclick="openGallery('Lost vape orion bar')" />
-<h3>Lost vape orion bar</h3>
-<label>Hits: 7500</label>
-<p>Precio: $170</p>
-<p>Sabor:</p>
-<select id="sabor3" onchange="updateCart()">
-<option>Euphria puddiing</option>
-<option>Strawberry watermelon</option>
-<option>Blueberry raspberry</option>
-</select>
-<label>Cantidad:</label>
-<input type="number" id="qty3" value="0" min="0" onchange="updateCart()" />
-</div>
+  <script>
+    let carrito = [], pago = "";
+    const precios = {
+      "Pillow Talk 13mL": 200,
+      "Snoopy Smoke Extra Tank 2 x 18ML": 250,
+      "Lost vape orion bar": 170,
+      "Death row": 200
+    };
+    const galeria = {
+      "vape 1": ["va.png", "va2.png", "va3.png"],
+      "vape 2": ["dosva.png", "rosa2.png", "ama2.png"],
+      "vape 3": ["v37.png", "we.png", "fe.png"],
+      "vape 4": ["snp1.png", "snp2.png", "snp3.png"]
+    };
+    let galeriaActual = [], imgIndex = 0;
 
-  <div class="product-box">
-<img src="snp1.png" alt="Vape 4" onclick="openGallery('Death row')" />
-<h3>Death row</h3>
-<label>Hits:7000</label>
-<p>Precio: $200</p>
-<p>Sabor:</p>
-<select id="sabor4" onchange="updateCart()">
-<option>Mixed berries</option>
-<option>Sour apple</option>
-<option>Peach ice</option>
-</select>
-<label>Cantidad:</label>
-<input type="number" id="qty4" value="0" min="0" onchange="updateCart()" />
-</div>
-  
-<div>  
-<button class="btn" onclick="prepareCart()">Continuar con el pedido</button>
-</div>
+    function updateCart() {
+      carrito = [];
+      const productos = [
+        { nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
+        { nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "dosva.png" },
+        { nombre: "Lost vape orion bar", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "v37.png" },
+        { nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.png" }
+      ];
+      let totalCantidad = 0, totalPrecio = 0;
+      productos.forEach(p => {
+        if (p.cantidad > 0) {
+          carrito.push(p);
+          totalCantidad += p.cantidad;
+          totalPrecio += p.cantidad * precios[p.nombre];
+        }
+      });
+      document.getElementById("cart-count").innerText = `Total: ${totalCantidad} productos - $${totalPrecio}`;
+    }
 
-<div class="page" id="page2">
-<h2>Datos de entrega y pago</h2>
-<label>Hora de entrega:</label>
-<input type="time" id="hora" />
-<label>Día de entrega:</label>
-<input type="date" id="dia" />
-<label>Lugar de entrega:</label>
-<select id="lugar">
-<option>La Raza</option>
-<option>Metro Hidalgo</option>
-<option>Plaza Las Américas</option>
-<option>Paseo Ventura</option>
-<option>Hospital</option>
-<option>Palacio San Cristóbal</option>
-</select>
-<h3>Método de pago:</h3>
-<button class="btn" onclick="setPago('Efectivo')">Efectivo</button>
-<button class="btn" onclick="setPago('Transferencia')">Transferencia</button>
-<div id="transferencia-info">
-<p><strong>BBVA:</strong> 41523143916190</p>
-<p><strong>Banco Azteca:</strong> 4027665887615996</p>
-</div>
-<button class="btn" onclick="showPage(1)">Regresar</button>
-<button class="btn" onclick="showPage(3)">Continuar</button>
-</div>
+    function prepareCart() {
+      updateCart();
+      if (carrito.length === 0) {
+        alert("Selecciona al menos un producto.");
+        return;
+      }
+      showPage(2);
+    }
 
-<div class="page" id="page3">
-<h2>Resumen del pedido</h2>
-<div id="resumen"></div>
-<button class="btn" onclick="showPage(2)">Regresar</button>
-<button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
-<div id="mensaje-final"></div>
-</div>
+    function setPago(metodo) {
+      pago = metodo;
+      document.getElementById("transferencia-info").style.display = metodo === "Transferencia" ? "block" : "none";
+    }
 
-<div id="gallery-modal" onclick="closeGallery()">
-<div id="close-gallery">&times;</div>
-<div class="gallery-nav" onclick="prevImg(event)">←</div>
-<img id="gallery-img" src="" alt="Galería Producto">
-<div class="gallery-nav" onclick="nextImg(event)">→</div>
-</div>
+    function showPage(n) {
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById("page" + n).classList.add("active");
+      if (n === 3) showResumen();
+    }
 
-<script>
-let carrito = [], pago = "";
-const precios = { "Vape 1": 200, "Vape 2": 250, "Vape 3": 170 , "Vape 4": 200 };
-const galeria = {
-  "Pillow Talk 13mL": ["va.png", "va2.png", "va3.png"],
-  "Snoopy Smoke Extra Tank 2 x 18ML": ["dosva.png", "rosa2.png", "ama2.png"],
-  "Lost vape orion bar": ["v37.png", "we.png", "fe.png"],
-  "Death row": ["snp1.png", "snp2.png", "snp3.png"]
-};
-  
-let galeriaActual = [], imgIndex = 0;
+    function showResumen() {
+      let resumenHTML = "", total = 0;
+      carrito.forEach(p => {
+        let subtotal = p.cantidad * precios[p.nombre];
+        total += subtotal;
+        resumenHTML += `
+          <div style="margin-bottom: 20px;">
+            <img src="${p.img}" style="max-width:100px"><br>
+            <ul>
+              <li><strong>Producto:</strong> ${p.nombre}</li>
+              <li><strong>Sabor:</strong> ${p.sabor}</li>
+              <li><strong>Cantidad:</strong> ${p.cantidad}</li>
+              <li><strong>Subtotal:</strong> $${subtotal}</li>
+            </ul>
+          </div>`;
+      });
+      let hora = document.getElementById("hora").value;
+      let dia = document.getElementById("dia").value;
+      let lugar = document.getElementById("lugar").value;
+      resumenHTML += `
+        <ul>
+          <li><strong>Entrega en:</strong> ${lugar}</li>
+          <li><strong>Día:</strong> ${dia}</li>
+          <li><strong>Hora:</strong> ${hora}</li>
+          <li><strong>Método de pago:</strong> ${pago}</li>
+          <li><strong>Total a pagar:</strong> $${total}</li>
+        </ul>`;
+      document.getElementById("resumen").innerHTML = resumenHTML;
+    }
 
-function updateCart() {
-carrito = [];
-const productos = [
-{ nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
-{ nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "dosva.jpg" },
-{ nombre: "Lost vape orion bar", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "v37.jpg" }
-{ nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.jpg" }
-];
-let totalCantidad = 0, totalPrecio = 0;
-carrito = []; // Es buena práctica vaciar el carrito antes de llenarlo de nuevo
+    function finalizarPedido() {
+      document.getElementById("mensaje-final").innerText = "PEDIDO FINALIZADO\nToma captura y mándala a IG: smile__vp";
+    }
 
-productos.forEach(p => {
-  if (p.cantidad > 0) {
-    carrito.push(p);
-    totalCantidad += p.cantidad;
-    totalPrecio += p.cantidad * precios[p.nombre];
-  }
-});
+    function openGallery(productId) {
+      galeriaActual = galeria[productId];
+      if (!galeriaActual) return;
+      imgIndex = 0;
+      document.getElementById("gallery-img").src = galeriaActual[imgIndex];
+      document.getElementById("gallery-modal").style.display = "flex";
+    }
 
-document.getElementById("cart-count").innerText = `Total: ${totalCantidad} productos - $${totalPrecio}`;
-}
-function prepareCart() {
-updateCart();
-if (carrito.length === 0) {
-alert("Selecciona al menos un producto.");
-return;
-}
-showPage(2);
-}
+    function closeGallery() {
+      document.getElementById("gallery-modal").style.display = "none";
+    }
 
-function setPago(metodo) {
-pago = metodo;
-document.getElementById("transferencia-info").style.display = metodo === "Transferencia" ? "block" : "none";
-}
+    function prevImg(e) {
+      e.stopPropagation();
+      imgIndex = (imgIndex - 1 + galeriaActual.length) % galeriaActual.length;
+      document.getElementById("gallery-img").src = galeriaActual[imgIndex];
+    }
 
-function showPage(n) {
-document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-document.getElementById("page" + n).classList.add("active");
-if (n === 3) showResumen();
-}
-
-function showResumen() {
-let resumenHTML = "";
-let total = 0;
-carrito.forEach(p => {
-let subtotal = p.cantidad * precios[p.nombre];
-total += subtotal;
-resumenHTML += `
-<div style="margin-bottom: 20px;">
-<img src="${p.img}" style="max-width:100px"><br>
-<ul>
-<li><strong>Producto:</strong> ${p.nombre}</li>
-<li><strong>Sabor:</strong> ${p.sabor}</li>
-<li><strong>Cantidad:</strong> ${p.cantidad}</li>
-<li><strong>Subtotal:</strong> $${subtotal}</li>
-</ul>
-</div>`;
-});
-let hora = document.getElementById("hora").value;
-let dia = document.getElementById("dia").value;
-let lugar = document.getElementById("lugar").value;
-resumenHTML += `
-<ul>
-<li><strong>Entrega en:</strong> ${lugar}</li>
-<li><strong>Día:</strong> ${dia}</li>
-<li><strong>Hora:</strong> ${hora}</li>
-<li><strong>Método de pago:</strong> ${pago}</li>
-<li><strong>Total a pagar:</strong> $${total}</li>
-</ul>`;
-document.getElementById("resumen").innerHTML = resumenHTML;
-}
-
-function finalizarPedido() {
-document.getElementById("mensaje-final").innerText = "PEDIDO FINALIZADO\nToma captura y mándala a IG: smile__vp";
-}
-
-function openGallery(productId) {
-galeriaActual = galeria[productId];
-if (!galeriaActual) return;
-imgIndex = 0;
-document.getElementById("gallery-img").src = galeriaActual[imgIndex];
-document.getElementById("gallery-modal").style.display = "flex";
-}
-
-function closeGallery() {
-document.getElementById("gallery-modal").style.display = "none";
-}
-
-function prevImg(e) {
-e.stopPropagation();
-imgIndex = (imgIndex - 1 + galeriaActual.length) % galeriaActual.length;
-document.getElementById("gallery-img").src = galeriaActual[imgIndex];
-}
-
-function nextImg(e) {
-e.stopPropagation();
-imgIndex = (imgIndex + 1) % galeriaActual.length;
-document.getElementById("gallery-img").src = galeriaActual[imgIndex];
-}
-</script>
+    function nextImg(e) {
+      e.stopPropagation();
+      imgIndex = (imgIndex + 1) % galeriaActual.length;
+      document.getElementById("gallery-img").src = galeriaActual[imgIndex];
+    }
+  </script>
 </body>
 </html>
- 
-
