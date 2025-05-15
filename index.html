@@ -2,157 +2,207 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tienda en Línea</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrito de Compras</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .pagina {
-      display: none;
-      padding: 20px;
-    }
-    .pagina.activa {
-      display: block;
+      background: #f8f8f8;
+      margin: 0; padding: 20px;
     }
     .producto {
-      border: 1px solid #ccc;
-      padding: 10px;
+      background: white;
+      padding: 15px;
       margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
-    .carrito-info {
+    .producto img {
+      width: 100px;
+      border-radius: 8px;
+    }
+    .producto-info {
+      flex-grow: 1;
+    }
+    label {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+    select, input[type=number] {
+      padding: 5px;
+      font-size: 1rem;
+    }
+    #cart-count {
       margin-top: 20px;
       font-weight: bold;
+      font-size: 1.2rem;
+      color: #333;
     }
-    .boton {
-      padding: 10px 20px;
-      background-color: #28a745;
+    /* Galería modal */
+    .gallery-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+    }
+    .gallery-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px black;
+    }
+    .gallery-modal.show {
+      display: flex;
+    }
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
       color: white;
-      border: none;
       cursor: pointer;
-    }
-    .boton:hover {
-      background-color: #218838;
-    }
-    .eliminar {
-      background-color: red;
-      color: white;
-      margin-left: 10px;
-      padding: 5px 10px;
-      border: none;
-      cursor: pointer;
-    }
-    .eliminar:hover {
-      background-color: darkred;
+      font-weight: bold;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-  <!-- Página 1: Tienda -->
-  <div id="pagina1" class="pagina activa">
-    <h1>Tienda</h1>
-    <div class="producto">
-      <p>Producto A - $10</p>
-      <button class="boton" onclick="agregarAlCarrito('Producto A', 10)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <p>Producto B - $20</p>
-      <button class="boton" onclick="agregarAlCarrito('Producto B', 20)">Agregar al carrito</button>
-    </div>
-    <div class="producto">
-      <p>Producto C - $15</p>
-      <button class="boton" onclick="agregarAlCarrito('Producto C', 15)">Agregar al carrito</button>
-    </div>
+  <h1>Carrito de Compras</h1>
 
-    <div class="carrito-info">
-      <p id="carritoCantidad">Productos en carrito: 0</p>
-      <p id="carritoTotal">Total a pagar: $0</p>
-      <button class="boton" onclick="mostrarSegundaPagina()">Continuar con el pedido</button>
+  <!-- Producto 1 -->
+  <div class="producto">
+    <img src="va.png" alt="Pillow Talk 13mL" onclick="openGallery('va.png')" style="cursor:pointer" />
+    <div class="producto-info">
+      <div><strong>Pillow Talk 13mL</strong></div>
+      <label for="sabor1">Sabor:</label>
+      <select id="sabor1" onchange="updateCart()">
+        <option value="Original">Original</option>
+        <option value="Frutas">Frutas</option>
+        <option value="Mentol">Mentol</option>
+      </select>
+      <br />
+      <label for="qty1">Cantidad:</label>
+      <input id="qty1" type="number" min="0" max="100" value="0" onchange="updateCart()" />
     </div>
   </div>
 
-  <!-- Página 2: Pedido -->
-  <div id="pagina2" class="pagina">
-    <h1>Datos de Entrega</h1>
-    <form>
-      <label>Nombre:</label><br />
-      <input type="text" required /><br /><br />
-      <label>Dirección:</label><br />
-      <input type="text" required /><br /><br />
-      <label>Teléfono:</label><br />
-      <input type="tel" required /><br /><br />
-    </form>
+  <!-- Producto 2 -->
+  <div class="producto">
+    <img src="dosva.png" alt="Snoopy Smoke Extra Tank 2 x 18ML" onclick="openGallery('dosva.png')" style="cursor:pointer" />
+    <div class="producto-info">
+      <div><strong>Snoopy Smoke Extra Tank 2 x 18ML</strong></div>
+      <label for="sabor2">Sabor:</label>
+      <select id="sabor2" onchange="updateCart()">
+        <option value="Original">Original</option>
+        <option value="Frutas">Frutas</option>
+        <option value="Mentol">Mentol</option>
+      </select>
+      <br />
+      <label for="qty2">Cantidad:</label>
+      <input id="qty2" type="number" min="0" max="100" value="0" onchange="updateCart()" />
+    </div>
+  </div>
 
-    <h2>Resumen del pedido</h2>
-    <ul id="listaResumen"></ul>
-    <p id="totalResumen"></p>
+  <!-- Producto 3 -->
+  <div class="producto">
+    <img src="v37.png" alt="Lost vape orion bar" onclick="openGallery('v37.png')" style="cursor:pointer" />
+    <div class="producto-info">
+      <div><strong>Lost vape orion bar</strong></div>
+      <label for="sabor3">Sabor:</label>
+      <select id="sabor3" onchange="updateCart()">
+        <option value="Original">Original</option>
+        <option value="Frutas">Frutas</option>
+        <option value="Mentol">Mentol</option>
+      </select>
+      <br />
+      <label for="qty3">Cantidad:</label>
+      <input id="qty3" type="number" min="0" max="100" value="0" onchange="updateCart()" />
+    </div>
+  </div>
 
-    <button class="boton" onclick="regresarATienda()">Volver a la tienda</button>
+  <!-- Producto 4 -->
+  <div class="producto">
+    <img src="snp1.png" alt="Death row" onclick="openGallery('snp1.png')" style="cursor:pointer" />
+    <div class="producto-info">
+      <div><strong>Death row</strong></div>
+      <label for="sabor4">Sabor:</label>
+      <select id="sabor4" onchange="updateCart()">
+        <option value="Original">Original</option>
+        <option value="Frutas">Frutas</option>
+        <option value="Mentol">Mentol</option>
+      </select>
+      <br />
+      <label for="qty4">Cantidad:</label>
+      <input id="qty4" type="number" min="0" max="100" value="0" onchange="updateCart()" />
+    </div>
+  </div>
+
+  <div id="cart-count">Total: 0 productos - $0</div>
+
+  <!-- Modal Galería -->
+  <div id="gallery-modal" class="gallery-modal" onclick="closeGallery()">
+    <span class="close-btn" onclick="closeGallery(event)">&times;</span>
+    <img id="gallery-img" src="" alt="Imagen ampliada" />
   </div>
 
   <script>
-    const carrito = [];
+    const precios = {
+      "Pillow Talk 13mL": 150,
+      "Snoopy Smoke Extra Tank 2 x 18ML": 350,
+      "Lost vape orion bar": 400,
+      "Death row": 120
+    };
 
-    function agregarAlCarrito(nombre, precio) {
-      carrito.push({ nombre, precio });
-      actualizarCarrito();
-    }
+    let carrito = [];
 
-    function eliminarDelCarrito(index) {
-      carrito.splice(index, 1);
-      actualizarCarrito();
-    }
+    function updateCart() {
+      carrito = [];
+      const productos = [
+        { nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
+        { nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "dosva.png" },
+        { nombre: "Lost vape orion bar", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "v37.png" },
+        { nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.png" }
+      ];
 
-    function actualizarCarrito() {
-      const cantidad = carrito.length;
-      const total = carrito.reduce((sum, item) => sum + item.precio, 0);
+      let totalCantidad = 0;
+      let totalPrecio = 0;
 
-      document.getElementById("carritoCantidad").innerText = `Productos en carrito: ${cantidad}`;
-      document.getElementById("carritoTotal").innerText = `Total a pagar: $${total}`;
-    }
-
-    function mostrarSegundaPagina() {
-      if (carrito.length === 0) {
-        alert("Agrega al menos un producto al carrito.");
-        return;
-      }
-      document.getElementById("pagina1").classList.remove("activa");
-      document.getElementById("pagina2").classList.add("activa");
-      renderizarResumen();
-    }
-
-    function regresarATienda() {
-      document.getElementById("pagina2").classList.remove("activa");
-      document.getElementById("pagina1").classList.add("activa");
-    }
-
-    function renderizarResumen() {
-      const lista = document.getElementById("listaResumen");
-      const totalResumen = document.getElementById("totalResumen");
-      lista.innerHTML = "";
-
-      carrito.forEach((producto, index) => {
-        const li = document.createElement("li");
-        li.textContent = `${producto.nombre} - $${producto.precio}`;
-
-        const btnEliminar = document.createElement("button");
-        btnEliminar.textContent = "Eliminar";
-        btnEliminar.className = "eliminar";
-        btnEliminar.onclick = () => {
-          eliminarDelCarrito(index);
-          renderizarResumen();
-        };
-
-        li.appendChild(btnEliminar);
-        lista.appendChild(li);
+      productos.forEach(p => {
+        if (p.cantidad > 0) {
+          carrito.push(p);
+          totalCantidad += p.cantidad;
+          totalPrecio += p.cantidad * precios[p.nombre];
+        }
       });
 
-      const total = carrito.reduce((sum, item) => sum + item.precio, 0);
-      totalResumen.textContent = `Total a pagar: $${total}`;
+      document.getElementById("cart-count").innerText = `Total: ${totalCantidad} producto${totalCantidad !== 1 ? 's' : ''} - $${totalPrecio}`;
     }
+
+    // Abrir galería modal
+    function openGallery(imgSrc) {
+      const modal = document.getElementById("gallery-modal");
+      const img = document.getElementById("gallery-img");
+      img.src = imgSrc;
+      modal.classList.add("show");
+    }
+
+    // Cerrar galería modal
+    function closeGallery(event) {
+      if(event) event.stopPropagation();
+      const modal = document.getElementById("gallery-modal");
+      modal.classList.remove("show");
+      document.getElementById("gallery-img").src = "";
+    }
+
+    // Inicializar carrito al cargar la página
+    window.onload = updateCart;
   </script>
 </body>
 </html>
