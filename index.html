@@ -3,206 +3,273 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Carrito de Compras</title>
+  <title>Tienda Vape</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      margin: 0; padding: 20px;
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    .page { display: none; padding: 20px; }
+    .page.active { display: block; }
+    h2 { margin-top: 0; }
+    .product { margin-bottom: 15px; }
+    label { display: block; margin: 5px 0 2px; }
+    select, input[type="number"], input[type="text"], input[type="time"], input[type="date"] {
+      width: 100%; max-width: 300px; padding: 5px; box-sizing: border-box;
     }
-    .producto {
-      background: white;
-      padding: 15px;
-      margin-bottom: 10px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
+    .btn { margin: 10px 5px 0 0; padding: 10px 20px; background: #007BFF; border: none; color: white; cursor: pointer; border-radius: 4px; }
+    .btn:hover { background: #0056b3; }
+    #cart-count { font-weight: bold; margin-bottom: 15px; }
+    #transferencia-info { background: #f0f8ff; padding: 10px; margin-top: 10px; border-radius: 4px; }
+    #gallery-modal {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center; z-index: 1000;
+      flex-direction: column;
     }
-    .producto img {
-      width: 100px;
-      border-radius: 8px;
+    #gallery-modal img {
+      max-width: 90%; max-height: 80vh; border-radius: 8px;
     }
-    .producto-info {
-      flex-grow: 1;
-    }
-    label {
-      font-weight: bold;
-      margin-right: 5px;
-    }
-    select, input[type=number] {
-      padding: 5px;
-      font-size: 1rem;
-    }
-    #cart-count {
-      margin-top: 20px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #333;
-    }
-    /* Galería modal */
-    .gallery-modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      justify-content: center;
-      align-items: center;
-    }
-    .gallery-modal img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 20px black;
-    }
-    .gallery-modal.show {
-      display: flex;
-    }
-    .close-btn {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      font-size: 2rem;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
+    #close-gallery {
+      position: absolute; top: 20px; right: 30px; font-size: 40px; color: white; cursor: pointer;
       user-select: none;
+    }
+    .gallery-nav {
+      font-size: 50px; color: white; cursor: pointer; margin: 0 20px;
+      user-select: none;
+      user-drag: none;
+    }
+    .gallery-nav:hover { color: #ccc; }
+    #gallery-controls {
+      display: flex; justify-content: center; margin-top: 10px; width: 100%;
     }
   </style>
 </head>
 <body>
 
-  <h1>Carrito de Compras</h1>
+<div id="cart-count">Total: 0 productos - $0</div>
 
-  <!-- Producto 1 -->
-  <div class="producto">
-    <img src="va.png" alt="Pillow Talk 13mL" onclick="openGallery('va.png')" style="cursor:pointer" />
-    <div class="producto-info">
-      <div><strong>Pillow Talk 13mL</strong></div>
-      <label for="sabor1">Sabor:</label>
-      <select id="sabor1" onchange="updateCart()">
-        <option value="Original">Original</option>
-        <option value="Frutas">Frutas</option>
-        <option value="Mentol">Mentol</option>
-      </select>
-      <br />
-      <label for="qty1">Cantidad:</label>
-      <input id="qty1" type="number" min="0" max="100" value="0" onchange="updateCart()" />
-    </div>
+<!-- Página 1: Selección de productos -->
+<div class="page active" id="page1">
+  <h2>Productos</h2>
+  <div class="product">
+    <strong>Pillow Talk 13mL</strong> - $200<br />
+    <label for="qty1">Cantidad:</label>
+    <input type="number" id="qty1" min="0" value="0" onchange="updateCart()" />
+    <label for="sabor1">Sabor:</label>
+    <select id="sabor1" onchange="updateCart()">
+      <option value="clear">Clear</option>
+      <option value="Bahanna mama">Bahanna mama</option>
+      <option value="Euphria puddiing">Euphria puddiing</option>
+      <option value="Mixed berries">Mixed berries</option>
+    </select>
+  </div>
+  <div class="product">
+    <strong>Snoopy Smoke Extra Tank 2 x 18ML</strong> - $250<br />
+    <label for="qty2">Cantidad:</label>
+    <input type="number" id="qty2" min="0" value="0" onchange="updateCart()" />
+    <label for="sabor2">Sabor:</label>
+    <select id="sabor2" onchange="updateCart()">
+      <option value="clear">Clear</option>
+      <option value="Bahanna mama">Bahanna mama</option>
+      <option value="Euphria puddiing">Euphria puddiing</option>
+      <option value="Mixed berries">Mixed berries</option>
+    </select>
+  </div>
+  <div class="product">
+    <strong>Lost vape orion bar</strong> - $170<br />
+    <label for="qty3">Cantidad:</label>
+    <input type="number" id="qty3" min="0" value="0" onchange="updateCart()" />
+    <label for="sabor3">Sabor:</label>
+    <select id="sabor3" onchange="updateCart()">
+      <option value="clear">Clear</option>
+      <option value="Bahanna mama">Bahanna mama</option>
+      <option value="Euphria puddiing">Euphria puddiing</option>
+      <option value="Mixed berries">Mixed berries</option>
+    </select>
+  </div>
+  <div class="product">
+    <strong>Death row</strong> - $200<br />
+    <label for="qty4">Cantidad:</label>
+    <input type="number" id="qty4" min="0" value="0" onchange="updateCart()" />
+    <label for="sabor4">Sabor:</label>
+    <select id="sabor4" onchange="updateCart()">
+      <option value="clear">Clear</option>
+      <option value="Bahanna mama">Bahanna mama</option>
+      <option value="Euphria puddiing">Euphria puddiing</option>
+      <option value="Mixed berries">Mixed berries</option>
+    </select>
   </div>
 
-  <!-- Producto 2 -->
-  <div class="producto">
-    <img src="dosva.png" alt="Snoopy Smoke Extra Tank 2 x 18ML" onclick="openGallery('dosva.png')" style="cursor:pointer" />
-    <div class="producto-info">
-      <div><strong>Snoopy Smoke Extra Tank 2 x 18ML</strong></div>
-      <label for="sabor2">Sabor:</label>
-      <select id="sabor2" onchange="updateCart()">
-        <option value="Original">Original</option>
-        <option value="Frutas">Frutas</option>
-        <option value="Mentol">Mentol</option>
-      </select>
-      <br />
-      <label for="qty2">Cantidad:</label>
-      <input id="qty2" type="number" min="0" max="100" value="0" onchange="updateCart()" />
-    </div>
+  <button class="btn" onclick="prepareCart()">Siguiente</button>
+</div>
+
+<!-- Página 2: Datos de entrega y pago -->
+<div class="page" id="page2">
+  <h2>Datos de entrega</h2>
+  <label for="dia">Día de entrega:</label>
+  <input type="date" id="dia" />
+  <label for="hora">Hora de entrega:</label>
+  <input type="time" id="hora" />
+  <label for="lugar">Lugar de entrega:</label>
+  <input type="text" id="lugar" placeholder="Dirección, colonia, etc." />
+
+  <h3>Método de pago</h3>
+  <label><input type="radio" name="pago" value="Efectivo" onclick="setPago('Efectivo')" /> Efectivo</label>
+  <label><input type="radio" name="pago" value="Transferencia" onclick="setPago('Transferencia')" /> Transferencia bancaria</label>
+
+  <div id="transferencia-info" style="display:none;">
+    <p><strong>Datos para transferencia:</strong></p>
+    <p>Banco: Bancomer</p>
+    <p>Cuenta: 1234 5678 9012 3456</p>
+    <p>CLABE: 012345678901234567</p>
   </div>
 
-  <!-- Producto 3 -->
-  <div class="producto">
-    <img src="v37.png" alt="Lost vape orion bar" onclick="openGallery('v37.png')" style="cursor:pointer" />
-    <div class="producto-info">
-      <div><strong>Lost vape orion bar</strong></div>
-      <label for="sabor3">Sabor:</label>
-      <select id="sabor3" onchange="updateCart()">
-        <option value="Original">Original</option>
-        <option value="Frutas">Frutas</option>
-        <option value="Mentol">Mentol</option>
-      </select>
-      <br />
-      <label for="qty3">Cantidad:</label>
-      <input id="qty3" type="number" min="0" max="100" value="0" onchange="updateCart()" />
-    </div>
+  <button class="btn" onclick="showPage(1)">Regresar</button>
+  <button class="btn" onclick="finalizarPedido()">Finalizar Pedido</button>
+</div>
+
+<!-- Página 3: Resumen -->
+<div class="page" id="page3">
+  <h2>Resumen del pedido</h2>
+  <div id="resumen"></div>
+  <button class="btn" onclick="showPage(2)">Regresar</button>
+  <div id="mensaje-final" style="margin-top: 20px; font-weight: bold; color: green;"></div>
+</div>
+
+<!-- Modal galería -->
+<div id="gallery-modal" onclick="closeGallery(event)">
+  <span id="close-gallery" onclick="closeGallery(event)">&times;</span>
+  <img id="gallery-img" src="" alt="Galería" />
+  <div id="gallery-controls">
+    <span class="gallery-nav" onclick="prevImage(event)">&#10094;</span>
+    <span class="gallery-nav" onclick="nextImage(event)">&#10095;</span>
   </div>
+</div>
 
-  <!-- Producto 4 -->
-  <div class="producto">
-    <img src="snp1.png" alt="Death row" onclick="openGallery('snp1.png')" style="cursor:pointer" />
-    <div class="producto-info">
-      <div><strong>Death row</strong></div>
-      <label for="sabor4">Sabor:</label>
-      <select id="sabor4" onchange="updateCart()">
-        <option value="Original">Original</option>
-        <option value="Frutas">Frutas</option>
-        <option value="Mentol">Mentol</option>
-      </select>
-      <br />
-      <label for="qty4">Cantidad:</label>
-      <input id="qty4" type="number" min="0" max="100" value="0" onchange="updateCart()" />
-    </div>
-  </div>
+<script>
+const products = [
+  {name: "Pillow Talk 13mL", price: 200, hits: 8500},
+  {name: "Snoopy Smoke Extra Tank 2 x 18ML", price: 250, hits: 15000},
+  {name: "Lost vape orion bar", price: 170, hits: 7500},
+  {name: "Death row", price: 200, hits: 7000}
+];
 
-  <div id="cart-count">Total: 0 productos - $0</div>
+let cart = [
+  {qty: 0, sabor: "clear"},
+  {qty: 0, sabor: "Bahanna mama"},
+  {qty: 0, sabor: "Euphria puddiing"},
+  {qty: 0, sabor: "Mixed berries"}
+];
 
-  <!-- Modal Galería -->
-  <div id="gallery-modal" class="gallery-modal" onclick="closeGallery()">
-    <span class="close-btn" onclick="closeGallery(event)">&times;</span>
-    <img id="gallery-img" src="" alt="Imagen ampliada" />
-  </div>
+let pagoMetodo = null;
+let currentGalleryIndex = 0;
+const galleryImages = [
+  "va.png",
+  "dosva.png",
+  "v37.png",
+  "snp1.png"
+];
 
-  <script>
-    const precios = {
-      "Pillow Talk 13mL": 150,
-      "Snoopy Smoke Extra Tank 2 x 18ML": 350,
-      "Lost vape orion bar": 400,
-      "Death row": 120
-    };
+function updateCart() {
+  for (let i = 0; i < products.length; i++) {
+    const qtyInput = document.getElementById(`qty${i+1}`);
+    const saborSelect = document.getElementById(`sabor${i+1}`);
+    cart[i].qty = parseInt(qtyInput.value) || 0;
+    cart[i].sabor = saborSelect.value;
+  }
+  updateCartHeader();
+}
 
-    let carrito = [];
+function updateCartHeader() {
+  let totalQty = 0;
+  let totalPrice = 0;
+  for (let i = 0; i < cart.length; i++) {
+    totalQty += cart[i].qty;
+    totalPrice += cart[i].qty * products[i].price;
+  }
+  document.getElementById("cart-count").textContent = `Total: ${totalQty} productos - $${totalPrice}`;
+}
 
-    function updateCart() {
-      carrito = [];
-      const productos = [
-        { nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
-        { nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "dosva.png" },
-        { nombre: "Lost vape orion bar", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "v37.png" },
-        { nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.png" }
-      ];
+function prepareCart() {
+  updateCart();
+  let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  if (totalQty === 0) {
+    alert("Por favor selecciona al menos un producto.");
+    return;
+  }
+  showPage(2);
+}
 
-      let totalCantidad = 0;
-      let totalPrecio = 0;
+function showPage(pageNum) {
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById(`page${i}`).classList.remove("active");
+  }
+  document.getElementById(`page${pageNum}`).classList.add("active");
 
-      productos.forEach(p => {
-        if (p.cantidad > 0) {
-          carrito.push(p);
-          totalCantidad += p.cantidad;
-          totalPrecio += p.cantidad * precios[p.nombre];
-        }
-      });
+  // Mostrar info transferencia si es necesario
+  document.getElementById("transferencia-info").style.display = pagoMetodo === "Transferencia" ? "block" : "none";
+}
 
-      document.getElementById("cart-count").innerText = `Total: ${totalCantidad} producto${totalCantidad !== 1 ? 's' : ''} - $${totalPrecio}`;
+function setPago(metodo) {
+  pagoMetodo = metodo;
+  document.getElementById("transferencia-info").style.display = metodo === "Transferencia" ? "block" : "none";
+}
+
+function finalizarPedido() {
+  const hora = document.getElementById("hora").value;
+  const dia = document.getElementById("dia").value;
+  const lugar = document.getElementById("lugar").value;
+
+  if (!hora || !dia || !pagoMetodo || lugar.trim() === "") {
+    alert("Por favor completa todos los datos de entrega y método de pago.");
+    return;
+  }
+
+  let resumenHTML = "<ul>";
+  cart.forEach((item, i) => {
+    if (item.qty > 0) {
+      resumenHTML += `<li>${item.qty} x ${products[i].name} (Sabor: ${item.sabor}) - $${item.qty * products[i].price}</li>`;
     }
+  });
+  resumenHTML += "</ul>";
+  resumenHTML += `<p><strong>Entrega:</strong> ${dia} a las ${hora} en ${lugar}</p>`;
+  resumenHTML += `<p><strong>Método de pago:</strong> ${pagoMetodo}</p>`;
 
-    // Abrir galería modal
-    function openGallery(imgSrc) {
-      const modal = document.getElementById("gallery-modal");
-      const img = document.getElementById("gallery-img");
-      img.src = imgSrc;
-      modal.classList.add("show");
-    }
+  document.getElementById("resumen").innerHTML = resumenHTML;
+  showPage(3);
+  document.getElementById("mensaje-final").textContent = "¡Gracias por tu compra! Tu pedido está en proceso.";
+}
 
-    // Cerrar galería modal
-    function closeGallery(event) {
-      if(event) event.stopPropagation();
-      const modal = document.getElementById("gallery-modal");
-      modal.classList.remove("show");
-      document.getElementById("gallery-img").src = "";
-    }
+function openGallery(name) {
+  currentGalleryIndex = galleryImages.findIndex(img => img.includes(name.split(' ')[1]));
+  if(currentGalleryIndex === -1) currentGalleryIndex = 0;
+  showGalleryImage();
+  document.getElementById("gallery-modal").style.display = "flex";
+}
 
-    // Inicializar carrito al cargar la página
-    window.onload = updateCart;
-  </script>
+function showGalleryImage() {
+  document.getElementById("gallery-img").src = galleryImages[currentGalleryIndex];
+}
+
+function closeGallery(event) {
+  if(event) event.stopPropagation();
+  document.getElementById("gallery-modal").style.display = "none";
+}
+
+function prevImage(event) {
+  event.stopPropagation();
+  currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+  showGalleryImage();
+}
+
+function nextImage(event) {
+  event.stopPropagation();
+  currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+  showGalleryImage();
+}
+
+updateCart();
+</script>
+
 </body>
 </html>
+
+ 
+
