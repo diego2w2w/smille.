@@ -269,10 +269,10 @@ color: white;
 let carrito = [], pago = "";
 const precios = { "Vape 1": 200, "Vape 2": 250, "Vape 3": 170 , "Vape 4": 200 };
 const galeria = {
-  "vape 1": ["va.png", "va2.png", "va3.png"],
-  "vape 2": ["dosva.png", "rosa2.png", "ama2.png"],
-  "vape 3": ["v37.png", "we.png", "fe.png"],
-  "vape 4": ["snp1.png", "snp2.png", "snp3.png"]
+  'vape 1': ["va.png", "va2.png", "va3.png"],
+  'vape 2': ["dosva.png", "rosa2.png", "ama2.png"],
+  'vape 3': ["v37.png", "we.png", "fe.png"],
+  'vape 4': ["snp1.png", "snp2.png", "snp3.png"]
 };
   
 let galeriaActual = [], imgIndex = 0;
@@ -306,19 +306,21 @@ const productos = [
 { nombre: "Pillow Talk 13mL", sabor: document.getElementById("sabor1").value, cantidad: parseInt(document.getElementById("qty1").value), img: "va.png" },
 { nombre: "Snoopy Smoke Extra Tank 2 x 18ML", sabor: document.getElementById("sabor2").value, cantidad: parseInt(document.getElementById("qty2").value), img: "dosva.jpg" },
 { nombre: "Lost vape orion bar", sabor: document.getElementById("sabor3").value, cantidad: parseInt(document.getElementById("qty3").value), img: "v37.jpg" }
-  { nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.jpg" }
+{ nombre: "Death row", sabor: document.getElementById("sabor4").value, cantidad: parseInt(document.getElementById("qty4").value), img: "snp1.jpg" }
 ];
 let totalCantidad = 0, totalPrecio = 0;
+carrito = []; // Es buena práctica vaciar el carrito antes de llenarlo de nuevo
+
 productos.forEach(p => {
-if (p.cantidad > 0) {
-carrito.push(p);
-totalCantidad += p.cantidad;
-totalPrecio += p.cantidad * precios[p.nombre];
-}
+  if (p.cantidad > 0) {
+    carrito.push(p);
+    totalCantidad += p.cantidad;
+    totalPrecio += p.cantidad * precios[p.nombre];
+  }
 });
+
 document.getElementById("cart-count").innerText = `Total: ${totalCantidad} productos - $${totalPrecio}`;
 }
-
 function prepareCart() {
 updateCart();
 if (carrito.length === 0) {
